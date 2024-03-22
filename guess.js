@@ -109,7 +109,7 @@ const checkButton = document.querySelector(".check")
 let words = ["Create", "Update", "Delete", "Master", "Branch", "Mainly", "Elzero", "School"];
 let wordGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
 let massageArea = document.querySelector(".massage")
-console.log(wordGuess)
+// console.log(wordGuess)
 function guessCheck() {
 
     let successguess = true;
