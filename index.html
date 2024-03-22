@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="guess.css">
+    <title></title>
+</head>
+
+<body>
+    <h1></h1>
+    <div class="guess-game">
+        <div class="game-area">
+            <div class="inputs"></div>
+            <div class="control">
+                <button class="check">Check Word</button>
+                <button class="hint"><span></span> Hints</button>
+            </div>
+            <div class="massage "></div>
+        </div>
+        <div class="key-colors">
+            <h2>Key Colors</h2>
+            <div class="key-color">
+                <div style="--color : #f89e13" class="key yes-in-place"></div>
+                <div class="key-text">letter is correct and in place</div>
+            </div>
+            <div class="key-color">
+                <div style="--color : #18ba89" class="key not-in-place"></div>
+                <div class="key-text">letter is correct but not in place</div>
+            </div>
+            <div class="key-color">
+                <div style="--color : #27303f" class="key no"></div>
+                <div class="key-text">letter is wrong</div>
+            </div>
+
+        </div>
+    </div>
+    <footer></footer>
+    <script src="guess.js"></script>
+    <script src="test.js"></script>
+</body>
+
+</html>
