@@ -18,6 +18,14 @@ function addUpperCaseLisener (input) {
     })
 }
 
+function addFocusNextLetterListener(input) {
+    input.addEventListener("input", function () {
+        if (input.nextElementSibling) {
+            input.nextElementSibling.focus();
+        }
+    })
+}
+
 function addArrowsLisener(input) {
     input.addEventListener("keydown", function (event) {
         if (event.key === "ArrowRight") {
@@ -76,6 +84,8 @@ function genrateInput() {
 
             tryDiv.appendChild(input)
 
+            const prevInput = tryDiv.children[j]
+            addFocusNextLetterListener(prevInput)
         }
         inputsContainer.appendChild(tryDiv)
     }
@@ -224,7 +234,6 @@ function hint() {
 
         randomInput.focus();
     }
-
 }
 
 hintButton.addEventListener("click", hint)
