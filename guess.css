@@ -155,14 +155,14 @@ input {
     }
 
     &.yes-in-place {
-        background-color: #f89e13;
-        border-color: #f89e13;
+        background-color: #18ba89;
+        border-color: #18ba89;
         color: white;
     }
 
     &.not-in-place {
-        background-color: #18ba89;
-        border-color: #18ba89;
+        background-color: #f89e13;
+        border-color: #f89e13;
         color: white;
     }
 

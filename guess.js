@@ -202,16 +202,7 @@ const hintButton = document.querySelector(".hint")
 
 function hint() {
 
-    // input try number of hint on span 
-    if (numberOfHint > 0) {
-        numberOfHint--
-        document.querySelector(".hint span").innerHTML = numberOfHint
-        if (numberOfHint === 0) {
-            hintButton.disabled = true;
 
-        }
-
-    }
     // get enabled input from input 
     let enabledInput = document.querySelectorAll("input:not([disabled])")
     //OR
@@ -235,8 +226,18 @@ function hint() {
 
             randomInput.value = wordGuess[indxToFill].toUpperCase()
             randomInput.style.cssText = "background-color : green; color :red"
-        }
 
+        }
+        // input try number of hint on span 
+        if (numberOfHint > 0) {
+            numberOfHint--
+            document.querySelector(".hint span").innerHTML = numberOfHint
+            if (numberOfHint === 0) {
+                hintButton.disabled = true;
+
+            }
+
+        }
 
         randomInput.focus();
 
