@@ -23,14 +23,17 @@ h1 {
 
 .guess-game {
     text-align: center;
-    width: 1000px;
     margin: 20px auto;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
-    height: 100vh;
+    justify-content: center;
+    gap: 100px;
 
     .game-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         .control {
             width: 400px;
             display: flex;
@@ -75,7 +78,6 @@ h1 {
             text-align: center;
             font-weight: bold;
             font-size: 30px;
-            height: 300px;
 
             span {
                 display: block;
@@ -84,7 +86,6 @@ h1 {
                 font-size: 50px;
                 color: var(--primary-color);
                 text-transform: capitalize;
-
 
             }
 
@@ -102,20 +103,22 @@ h1 {
 
         }
 
-
-
         .inputs {
-            >div {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+
+            .try {
                 margin-bottom: 20px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
-
+                gap: 30px;
 
                 >span {
-                    margin-right: 15px;
                     font-size: 25px;
                     font-weight: bold;
+                    white-space: nowrap;
                 }
 
                 &.disabled-inputs {
@@ -127,11 +130,41 @@ h1 {
 
         }
     }
+
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        gap: 10px;
+
+        .game-area {
+            width: 100vw;
+            width: 100%;
+
+            .inputs {
+                white-space: nowrap;
+                overflow-x: scroll;
+                overflow-y: hidden;
+
+                .try {
+                    gap: 10px;
+
+                    >span {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .control {
+                margin: 30px 30px;
+            }
+        }
+    }
 }
 
 
 input {
-    margin: 0 15px;
     width: 60px;
     height: 60px;
     border: none;
@@ -171,6 +204,13 @@ input {
         border-color: #27303f;
         color: white;
     }
+
+    @media screen and (max-width: 1024px) {
+        width: 45px;
+        height: 45px;
+
+        font-size: 25px;
+    }
 }
 
 
@@ -183,6 +223,8 @@ input {
         padding: 12px;
         background-color: white;
         margin-bottom: 10px;
+        text-align: left;
+        white-space: nowrap;
 
         .key {
             width: 30px;
@@ -222,6 +264,10 @@ footer {
     padding: 10px;
     color: white;
     font-size: 16px;
+
+    @media screen and (max-width:1024px) {
+        position: sticky;
+    }
 }
 
 .hintInput {
