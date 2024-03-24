@@ -220,13 +220,13 @@ function hint() {
         let randomIndex = Math.floor(Math.random() * emptyinput.length)//!! i cant use randoIndex with wordGuess to get random letter buecous randomIndex value change bettwen to var
         let randomInput = emptyinput[randomIndex]
 
-        let indxToFill = Array.from(enabledInput).indexOf(randomInput)
+        let indxRandomInputToFill = Array.from(enabledInput).indexOf(randomInput)
         // if randomInput in enabledInput  
-        if (indxToFill !== -1) {
+        if (indxRandomInputToFill !== -1) {
 
-            randomInput.value = wordGuess[indxToFill].toUpperCase()
-            randomInput.style.cssText = "background-color : green; color :red"
-
+            randomInput.value = wordGuess[indxRandomInputToFill].toUpperCase()
+            // randomInput.style.cssText = "background-color : green; color :red"  //!!// perfer i do class  
+            randomInput.classList.add("hintInput")
         }
         // input try number of hint on span 
         if (numberOfHint > 0) {
@@ -246,55 +246,55 @@ function hint() {
 
 }
 // Rmove letter !!!
-// function deleteLetter() {
-//     const inputs = document.querySelectorAll("input:not([disabled])")
-//     inputs.forEach((input, index) => {
-//         input.addEventListener("keydown", (event) => {
-//             if (event.key === "Backspace") {
-//                 // const curentIndx = Array.from(inputs).indexOf(event.target)
-//                 //OR
-//                 // const curentIndx = Array.from(inputs).indexOf(document.activeElement)
-//                 // const currentInput = inputs[curentIndx]
-//                 //OR use index from forEach
-//                 if (index > 0) {
-//                     const currentInput = inputs[index]
-//                     const previousInput = inputs[index - 1]
-//                     currentInput.value = ""
-//                     previousInput.value = ""
-//                     previousInput.focus();
+function deleteLetter() {  // this perfer way 
+    const inputs = document.querySelectorAll("input:not([disabled])")
+    inputs.forEach((input, index) => {
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Backspace") {
+                // const curentIndx = Array.from(inputs).indexOf(event.target)
+                //OR
+                // const curentIndx = Array.from(inputs).indexOf(document.activeElement)
+                // const currentInput = inputs[curentIndx]
+                //OR use index from forEach
+                if (index > 0) {
+                    const currentInput = inputs[index]
+                    const previousInput = inputs[index - 1]
+                    currentInput.value = ""
+                    previousInput.value = ""
+                    previousInput.focus();
 
-//                 }
-//                 //OR
-//                 // const currentInput = inputs[index]
-//                 // if (currentInput.previousElementSibling) {
-//                 //     currentInput.value = ""
-//                 //     currentInput.previousElementSibling.value = ""
-//                 //     currentInput.previousElementSibling.focus();
-//                 // }
+                }
+                //OR
+                // const currentInput = inputs[index]
+                // if (currentInput.previousElementSibling) {
+                //     currentInput.value = ""
+                //     currentInput.previousElementSibling.value = ""
+                //     currentInput.previousElementSibling.focus();
+                // }
 
-//             }
-//         })
-//     })
-// }
-//OR !!!!
-function deleteLetter(event) {
-
-    if (event.key === "Backspace") {
-        const inputs = document.querySelectorAll("input:not([disabled])")
-        const currentIndex = Array.from(inputs).indexOf(document.activeElement)
-        //OR
-        // const currentIndex = Array.from(inputs).indexOf(event.target)
-        // console.log(currentIndex)
-        if (currentIndex > 0) {
-            const currentInput = inputs[currentIndex]
-            const previousInput = inputs[currentIndex - 1]
-            currentInput.value = ""
-            previousInput.value = ""
-            previousInput.focus();
-        }
-
-    }
+            }
+        })
+    })
 }
+//OR !!!!
+// function deleteLetter(event) {
+
+//     if (event.key === "Backspace") {
+//         const inputs = document.querySelectorAll("input:not([disabled])")
+//         const currentIndex = Array.from(inputs).indexOf(document.activeElement)
+//         //OR
+//         // const currentIndex = Array.from(inputs).indexOf(event.target)
+//         // console.log(currentIndex)
+//         if (currentIndex > 0) {
+//             const currentInput = inputs[currentIndex]
+//             const previousInput = inputs[currentIndex - 1]
+//             currentInput.value = ""
+//             previousInput.value = ""
+//             previousInput.focus();
+//         }
+
+//     }
+// }
 
 document.addEventListener("keydown", deleteLetter)
 hintButton.addEventListener("click", hint)
