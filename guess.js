@@ -154,7 +154,7 @@ function guessCheck() {
 
         //////add disabled class on ALL try Divs 
         let allTries = document.querySelectorAll(".inputs > div")
-        // OR
+        // OR hi
         // let allTries = document.querySelectorAll(".try ")
         allTries.forEach((tryDiv) => {
             tryDiv.classList.add("disabled-inputs")
