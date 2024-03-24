@@ -63,16 +63,14 @@ function genrateInput() {
         const tryDiv = document.createElement("div")
         tryDiv.classList.add(`try-${i}`, "try")
         tryDiv.innerHTML = `<span>Try ${i} </span>`
-        // OR
-        // const span = document.createElement("span")
-        // span.innerHTML = `Try ${i}`
-        // tryDiv.append(span)
-
-        if (i !== 1) tryDiv.classList.add("disabled-inputs")
 
         //creat inputs
         for (let j = 1; j <= numbersOfLeters; j++) {
             const input = document.createElement("input")
+            if (i !== 1) {
+                tryDiv.classList.add("disabled-inputs")
+                input.disabled = true
+            }
             input.type = "Text";
             // input.placeholder = "miss"
             input.id = `guess-${i}-input-${j}`
@@ -90,11 +88,6 @@ function genrateInput() {
         inputsContainer.appendChild(tryDiv)
     }
     inputsContainer.children[0].children[1].focus();
-    //disabled All inpus expect frist input one
-
-    const inputsDisabledDiv = document.querySelectorAll(".disabled-inputs  input")
-    inputsDisabledDiv.forEach((input) => (input.disabled = true))
-
 }
 const checkButton = document.querySelector(".check")
 
