@@ -12,6 +12,41 @@ let currentTry = 1;
 let numberOfHint = 2;
 
 
+function addUpperCaseLisener (input) {
+    input.addEventListener("input", function () {
+        this.value = this.value.toUpperCase();
+    })
+}
+
+function addArrowsLisener(input) {
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowRight") {
+            if (input.nextElementSibling) {
+                input.nextElementSibling.focus();
+            }
+
+        }
+
+        if (event.key === "ArrowLeft") {
+            if (input.previousElementSibling) {
+                input.previousElementSibling.focus();
+            }
+
+        }
+    })
+}
+
+function addDeleteLisener(input) {
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Backspace") {
+            if (input.previousElementSibling) {
+                input.value = ""
+                input.previousElementSibling.value = ""
+                input.previousElementSibling.focus();
+            }
+        }
+    })
+}
 
 function genrateInput() {
     const inputsContainer = document.querySelector(".inputs")
@@ -35,14 +70,11 @@ function genrateInput() {
             input.id = `guess-${i}-input-${j}`
             input.setAttribute("maxLength", "1")
 
-            // OR
-            // input.maxLength = "2"
-            // creat move to next input 
-            // input.addEventListener("keyup", () => {
-            //     input.nextElementSibling.focus()
-            // })
-            tryDiv.appendChild(input)
+            addUpperCaseLisener(input)
+            addArrowsLisener(input)
+            addDeleteLisener(input)
 
+            tryDiv.appendChild(input)
 
         }
         inputsContainer.appendChild(tryDiv)
@@ -53,54 +85,6 @@ function genrateInput() {
     const inputsDisabledDiv = document.querySelectorAll(".disabled-inputs  input")
     inputsDisabledDiv.forEach((input) => (input.disabled = true))
 
-    //convert inputs  to Uppercase 
-    const inputs = document.querySelectorAll("input");
-    inputs.forEach((input, index) => {
-        input.addEventListener("input", function () {
-            this.value = this.value.toUpperCase();
-            // Foucs Next Input
-            // const nextInput = Inputs[index + 1]
-            // if (nextInput) {
-            //     nextInput.focus();
-            // }
-            //OR
-            if (input.nextElementSibling) {
-                input.nextElementSibling.focus();
-            }
-        })
-        input.addEventListener("keydown", function (event) {
-            // console.log(event)
-            const curentIndx = Array.from(inputs).indexOf(event.target) //OR we can use direct index from ForEach 
-            // console.log(event.target)
-            if (event.key === "ArrowRight") {
-                const nextInput = curentIndx + 1
-                // console.log(nextInput)
-                if (nextInput < inputs.length) inputs[nextInput].focus();
-
-            }
-
-            if (event.key === "ArrowLeft") {
-                const previousInput = curentIndx - 1
-                if (previousInput >= 0) inputs[previousInput].focus();
-
-            }
-
-            //OR
-            // if (event.key === "ArrowRight") {
-            //     if (input.nextElementSibling) {
-            //         input.nextElementSibling.focus();
-            //     }
-
-            // }
-
-            // if (event.key === "ArrowLeft") {
-            //     if (input.previousElementSibling) {
-            //         input.previousElementSibling.focus();
-            //     }
-
-            // }
-        })
-    })
 }
 const checkButton = document.querySelector(".check")
 
@@ -234,72 +218,18 @@ function hint() {
             document.querySelector(".hint span").innerHTML = numberOfHint
             if (numberOfHint === 0) {
                 hintButton.disabled = true;
-
             }
 
         }
 
         randomInput.focus();
-
-
     }
 
 }
-// Rmove letter !!!
-function deleteLetter() {  // this perfer way 
-    const inputs = document.querySelectorAll("input:not([disabled])")
-    inputs.forEach((input, index) => {
-        input.addEventListener("keydown", (event) => {
-            if (event.key === "Backspace") {
-                // const curentIndx = Array.from(inputs).indexOf(event.target)
-                //OR
-                // const curentIndx = Array.from(inputs).indexOf(document.activeElement)
-                // const currentInput = inputs[curentIndx]
-                //OR use index from forEach
-                if (index > 0) {
-                    const currentInput = inputs[index]
-                    const previousInput = inputs[index - 1]
-                    currentInput.value = ""
-                    previousInput.value = ""
-                    previousInput.focus();
 
-                }
-                //OR
-                // const currentInput = inputs[index]
-                // if (currentInput.previousElementSibling) {
-                //     currentInput.value = ""
-                //     currentInput.previousElementSibling.value = ""
-                //     currentInput.previousElementSibling.focus();
-                // }
-
-            }
-        })
-    })
-}
-//OR !!!!
-// function deleteLetter(event) {
-
-//     if (event.key === "Backspace") {
-//         const inputs = document.querySelectorAll("input:not([disabled])")
-//         const currentIndex = Array.from(inputs).indexOf(document.activeElement)
-//         //OR
-//         // const currentIndex = Array.from(inputs).indexOf(event.target)
-//         // console.log(currentIndex)
-//         if (currentIndex > 0) {
-//             const currentInput = inputs[currentIndex]
-//             const previousInput = inputs[currentIndex - 1]
-//             currentInput.value = ""
-//             previousInput.value = ""
-//             previousInput.focus();
-//         }
-
-//     }
-// }
-
-document.addEventListener("keydown", deleteLetter)
 hintButton.addEventListener("click", hint)
 
 checkButton.addEventListener("click", guessCheck)
 
 window.onload = genrateInput();
-// window.onload = deleteLetter();
+
