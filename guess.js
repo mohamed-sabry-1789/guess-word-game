@@ -14,7 +14,7 @@ let numberOfHint = 2;
 let words = ["Create", "Update", "Delete", "Master", "Branch", "Mainly", "Elzero", "School"];
 let wordGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
 let massageArea = document.querySelector(".massage")
-
+let numbersOfInputs = wordGuess.length
 function addUpperCaseAndFoucinInput(input) {
     input.addEventListener("input", function () {
         this.value = this.value.toUpperCase();
@@ -59,8 +59,6 @@ function genrateInput() {
     for (let i = 1; i <= numbersOfTries; i++) {
         const tryDiv = document.createElement("div")
         tryDiv.classList.add(`try-${i}`)
-        // tryDiv.innerHTML = `<span>Try ${i} </span>`
-        // OR
         const span = document.createElement("span")
         span.innerHTML = `Try ${i}`
         tryDiv.append(span)
@@ -68,7 +66,7 @@ function genrateInput() {
 
 
         //creat inputs
-        for (let j = 1; j <= wordGuess.length; j++) {
+        for (let j = 1; j <= numbersOfInputs; j++) {
             const input = document.createElement("input")
             input.type = "Text";
             input.id = `guess-${i}-input-${j}`
@@ -76,9 +74,10 @@ function genrateInput() {
             tryDiv.appendChild(input)
 
             if (i !== 1) {
-                tryDiv.classList.add("disabled-inputs")
-
+                tryDiv.classList.add("disabled-inputs") //!
                 input.disabled = true
+
+
             }
             addUpperCaseAndFoucinInput(input)
             addarrwInput(input)
@@ -97,7 +96,7 @@ const checkButton = document.querySelector(".check")
 function guessCheck() {
 
     let successguess = true;
-    for (let i = 1; i <= wordGuess.length; i++) {
+    for (let i = 1; i <= numbersOfInputs; i++) {
         const inputField = document.querySelector(`#guess-${currentTry}-input-${i}`)
 
         const Letter = inputField.value.toLowerCase();
