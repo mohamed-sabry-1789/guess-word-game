@@ -58,7 +58,7 @@ function genrateInput() {
     //creat main tryDiv or parent div
     for (let i = 1; i <= numbersOfTries; i++) {
         const tryDiv = document.createElement("div")
-        tryDiv.classList.add(`try-${i}`)
+        tryDiv.classList.add(`try-${i}`, 'try')
         const span = document.createElement("span")
         span.innerHTML = `Try ${i}`
         tryDiv.append(span)
@@ -131,8 +131,7 @@ function guessCheck() {
         massageArea.append(text2, span)
 
         //////add disabled class on ALL try Divs 
-        let allTries = document.querySelectorAll(".inputs > div")
-        // OR hi
+        let allTries = document.querySelectorAll('.try');
         allTries.forEach((tryDiv) => {
             tryDiv.classList.add("disabled-inputs")
         })

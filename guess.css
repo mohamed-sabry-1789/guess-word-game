@@ -74,7 +74,7 @@ h1 {
         .massage {
             text-align: center;
             font-weight: bold;
-            font-size: 30px;
+            font-size: 10px;
             height: 300px;
 
             span {
@@ -129,15 +129,7 @@ h1 {
     }
 }
 
-@media (max-width: 600px) {
-    .guess-game {
-        flex-direction: column;
 
-        align-items: center;
-
-    }
-
-}
 
 input {
     margin: 0 15px;
@@ -218,6 +210,34 @@ input {
         } */
             background-color: var(--color);
         }
+    }
+}
+
+@media (max-width: 600px) {
+    .guess-game {
+        flex-direction: column;
+        width: fit-content;
+        align-items: center;
+
+
+    }
+
+    .inputs>div>input {
+        margin-right: 0;
+        width: 30px;
+        height: 30px;
+
+    }
+
+    .key-colors {
+        position: relative;
+        top: -100px;
+    }
+
+
+    .try>input {
+        font-size: 30px;
+        font-weight: bold;
     }
 }
 
