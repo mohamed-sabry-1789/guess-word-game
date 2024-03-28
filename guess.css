@@ -213,6 +213,26 @@ input {
     }
 }
 
+
+
+
+footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #333;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+}
+
+.hintInput {
+    background-color: green;
+    color: red;
+}
+
 @media (max-width: 600px) {
 
     .guess-game {
@@ -226,6 +246,7 @@ input {
     .game-area {
         margin: 0;
         padding: 0;
+
     }
 
 
@@ -242,10 +263,10 @@ input {
 
     .key-colors {
         position: relative;
-
+        top: -300px;
     }
 
-    .massage {}
+
 
     .guess-game .game-area .inputs>div>span {
         margin-right: 0px;
@@ -254,8 +275,6 @@ input {
 
     .guess-game .game-area .inputs>div {
         display: flex;
-
-
         width: min-content;
     }
 
@@ -274,24 +293,5 @@ input {
         width: min-content;
     }
 
-    footer {
-        display: none;
-    }
-}
 
-footer {
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background-color: #333;
-    width: 100%;
-    padding: 10px;
-    color: white;
-    font-size: 16px;
-}
-
-.hintInput {
-    background-color: green;
-    color: red;
 }

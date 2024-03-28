@@ -129,7 +129,8 @@ function guessCheck() {
         let text2 = document.createTextNode("you win  the word is")
         span.append(text)
         massageArea.append(text2, span)
-
+        const a = document.querySelector(".key-colors")
+        a.style.display = "none"
         //////add disabled class on ALL try Divs 
         let allTries = document.querySelectorAll('.try');
         allTries.forEach((tryDiv) => {
@@ -171,6 +172,8 @@ function guessCheck() {
             //disabled check button  and hint button
             checkButton.disabled = true;
             hintButton.disabled = true;
+            const a = document.querySelector(".key-colors")
+            a.style.display = "none"
         }
     }
 }
@@ -220,7 +223,12 @@ function hint() {
     }
 
 }
-
+function ent(e) {
+    if (e.key === "Enter") {
+        checkButton.click()
+    }
+}
+document.addEventListener("keydown", ent)
 hintButton.addEventListener("click", hint)
 
 checkButton.addEventListener("click", guessCheck)
