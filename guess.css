@@ -214,30 +214,68 @@ input {
 }
 
 @media (max-width: 600px) {
+
     .guess-game {
         flex-direction: column;
-        width: fit-content;
+        width: min-content;
         align-items: center;
-
+        height: 0px;
 
     }
+
+    .game-area {
+        margin: 0;
+        padding: 0;
+    }
+
 
     .inputs>div>input {
-        margin-right: 0;
+        margin-right: 0px;
         width: 30px;
         height: 30px;
+        font-size: 30px;
+        font-weight: bold;
 
     }
+
+
 
     .key-colors {
         position: relative;
-        top: -100px;
+
     }
 
+    .massage {}
 
-    .try>input {
-        font-size: 30px;
-        font-weight: bold;
+    .guess-game .game-area .inputs>div>span {
+        margin-right: 0px;
+
+    }
+
+    .guess-game .game-area .inputs>div {
+        display: flex;
+
+
+        width: min-content;
+    }
+
+    .guess-game .game-area .control {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: min-content;
+    }
+
+    body {
+        width: min-content;
+    }
+
+    html {
+        width: min-content;
+    }
+
+    footer {
+        display: none;
     }
 }
 
