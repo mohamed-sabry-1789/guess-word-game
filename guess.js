@@ -12,9 +12,12 @@ let numberOfHint = 2;
 // mange words 
 
 let words = ["Create", "Update", "Delete", "Master", "Branch", "Mainly", "Elzero", "School"];
-let wordGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
+// let wordGuess = randomWord();
+function randomWord() {
+    return words[Math.floor(Math.random() * words.length)].toLowerCase();
+}
 let massageArea = document.querySelector(".massage")
-let numbersOfInputs = wordGuess.length
+// let numbersOfInputs = wordGuess.length
 function addUpperCaseAndFoucinInput(input) {
     input.addEventListener("input", function () {
         this.value = this.value.toUpperCase();
@@ -53,7 +56,8 @@ function deleteLetterinInput(input) {
         }
     })
 }
-function genrateInput() {
+function genrateInput(context) {
+    const numbersOfInputs = context.wordLength();
     const inputsContainer = document.querySelector(".inputs")
     //creat main tryDiv or parent div
     for (let i = 1; i <= numbersOfTries; i++) {
@@ -91,9 +95,18 @@ function genrateInput() {
 }
 const checkButton = document.querySelector(".check")
 
+const gameContext = {
+    word: randomWord(),
+    currentWord() { return this.word },
+    // For new game
+    reset() { this.word = randomWord() },
+    wordLength() { return this.word.length }
+}
 
 // console.log(wordGuess)
-function guessCheck() {
+function guessCheck(context) {
+    const numbersOfInputs = context.wordLength();
+    const wordGuess = context.currentWord();
 
     let successguess = true;
     for (let i = 1; i <= numbersOfInputs; i++) {
@@ -126,7 +139,7 @@ function guessCheck() {
     if (successguess) {
         let span = document.createElement("span")
         let text = document.createTextNode(`${wordGuess}`)
-        let text2 = document.createTextNode("you win  the word is")
+        let text2 = document.createTextNode("you win the word is")
         span.append(text)
         massageArea.append(text2, span)
         const a = document.querySelector(".key-colors")
@@ -183,9 +196,10 @@ function guessCheck() {
 document.querySelector(".hint span").innerHTML = numberOfHint
 const hintButton = document.querySelector(".hint")
 
-function hint() {
+function hint(context) {
     // get enabled input from input 
     let enabledInput = document.querySelectorAll("input:not([disabled])")
+    const wordGuess = context.currentWord();
 
     // get emptyInput
 
@@ -229,9 +243,9 @@ function ent(e) {
     }
 }
 document.addEventListener("keydown", ent)
-hintButton.addEventListener("click", hint)
+hintButton.addEventListener("click", () => { hint(gameContext) })
 
-checkButton.addEventListener("click", guessCheck)
+checkButton.addEventListener("click", () => { guessCheck(gameContext) })
 
-window.onload = genrateInput();
+window.onload = genrateInput(gameContext);
 
