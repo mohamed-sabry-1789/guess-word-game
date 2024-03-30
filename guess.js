@@ -7,8 +7,9 @@ document.querySelector("footer").innerHTML = `${nameGame} Game created by Mohame
 // setting Game options
 
 const numbersOfTries = 6;
-let currentTry = 1;
-let numberOfHint = 2;
+// let currentTry = 1;
+
+// let numberOfHint = 2;
 // mange words 
 
 let words = ["Create", "Update", "Delete", "Master", "Branch", "Mainly", "Elzero", "School"];
@@ -16,14 +17,40 @@ let words = ["Create", "Update", "Delete", "Master", "Branch", "Mainly", "Elzero
 function randomWord() {
     return words[Math.floor(Math.random() * words.length)].toLowerCase();
 }
+const gameContext = {
+    word: randomWord(),
+    currentWord() { return this.word },
+    // For new game
+    reset() { this.word = randomWord() },
+    wordLength() { return this.word.length },
+    numberOfHint: 2,
+    restHint() { this.numberOfHint = 2 },
+    nextHint() { this.numberOfHint-- },
+    hintIndex: [],
+    currentTry: 1,
+    curentTryF() { return this.currentTry },
+    nextCurrentTry() { this.currentTry++ },
+    restCurrentTry() { this.currentTry = 1 }
+}
 let massageArea = document.querySelector(".massage")
-// let numbersOfInputs = wordGuess.length
+
 function addUpperCaseAndFoucinInput(input) {
-    input.addEventListener("input", function () {
-        this.value = this.value.toUpperCase();
-        if (input.nextElementSibling) {
-            input.nextElementSibling.focus();
+    // input -> value
+    // input.addEventListener("input", function (event) {
+    //     event.preventDefault();
+    // })
+    input.addEventListener("keydown", function (event) {
+        // console.log({ event })
+        const key = event.key;
+        if (key.match(/^[a-z]{1}$/i) && !(event.altKey || event.ctrlKey || event.metaKey)) {
+            event.preventDefault();
+            this.value = key.toUpperCase();
+            if (input.nextElementSibling) {
+                input.nextElementSibling.focus();
+
+            }
         }
+
     })
 }
 function addarrwInput(input) {
@@ -31,27 +58,83 @@ function addarrwInput(input) {
         if (event.key === "ArrowRight") {
             if (input.nextElementSibling) {
                 input.nextElementSibling.focus();
+            } else {
+                input.parentElement.children[1].focus()
             }
+
 
         }
 
         if (event.key === "ArrowLeft") {
-            if (input.previousElementSibling) {
-                input.previousElementSibling.focus();
+            const prevInput = input.previousElementSibling;
+            if (isInputElement(prevInput)) {
+
+                if (prevInput.classList.contains("hintInput")) {
+                    const prevPrevInput = prevInput.previousElementSibling;
+                    if (isInputElement(prevPrevInput)) {
+                        if (prevPrevInput.classList.contains("hintInput")) {
+                            const prevPrevPrevInput = prevPrevInput.previousElementSibling;
+                            if (isInputElement(prevPrevPrevInput)) {
+                                prevPrevPrevInput.focus();
+                            } else {
+                                input.parentElement.lastElementChild.focus()
+                            }
+                        } else {
+                            prevPrevInput.focus();
+                        }
+                    } else {
+                        input.parentElement.lastElementChild.focus()
+                    }
+                } else {
+                    prevInput.focus();
+                }
+
+
+            } else {
+
+                input.parentElement.lastElementChild.focus()
+
             }
 
         }
     })
 }
+function isInputElement(element) {
+    return element && element.tagName === 'INPUT';
+}
+
+function inputLisner(input) {
+    input.addEventListener("focus", () => {
+        if (input.classList.contains("hintInput")) {
+            if (input.nextElementSibling) {
+                input.nextElementSibling.focus()
+            } else {
+                input.parentElement.children[1].focus()
+            }
+        }
+
+    })
+}
 function deleteLetterinInput(input) {
     input.addEventListener("keydown", (event) => {
         if (event.key === "Backspace") {
+            if (input.value) {
+                if (input.classList.contains("hintInput")) {
+                    event.preventDefault();
+                } else {
+                    input.value = ""
+                }
+            } else if (input.previousElementSibling) {
+                if (!input.previousElementSibling.classList.contains("hintInput")) {
 
-            if (input.previousElementSibling) {
-                input.value = ""
-                input.previousElementSibling.value = ""
-                input.previousElementSibling.focus();
+                    input.previousElementSibling.value = ""
+                    input.previousElementSibling.focus();
+                } else {
+                    input.previousElementSibling.previousElementSibling.value = ""
+                    input.previousElementSibling.previousElementSibling.focus();
+                }
             }
+
 
         }
     })
@@ -86,6 +169,7 @@ function genrateInput(context) {
             addUpperCaseAndFoucinInput(input)
             addarrwInput(input)
             deleteLetterinInput(input)
+            inputLisner(input)
         }
 
         inputsContainer.appendChild(tryDiv)
@@ -95,22 +179,17 @@ function genrateInput(context) {
 }
 const checkButton = document.querySelector(".check")
 
-const gameContext = {
-    word: randomWord(),
-    currentWord() { return this.word },
-    // For new game
-    reset() { this.word = randomWord() },
-    wordLength() { return this.word.length }
-}
 
 // console.log(wordGuess)
 function guessCheck(context) {
     const numbersOfInputs = context.wordLength();
     const wordGuess = context.currentWord();
 
+    // const curentTry = context.curentTryF();
+    const curentTry = context.curentTry;
     let successguess = true;
     for (let i = 1; i <= numbersOfInputs; i++) {
-        const inputField = document.querySelector(`#guess-${currentTry}-input-${i}`)
+        const inputField = document.querySelector(`#guess-${context.currentTry}-input-${i}`)
 
         const Letter = inputField.value.toLowerCase();
 
@@ -155,21 +234,21 @@ function guessCheck(context) {
 
     } else {
         // disabled curentTry 
-        document.querySelector(`.try-${currentTry}`).classList.add("disabled-inputs")
+        document.querySelector(`.try-${context.currentTry}`).classList.add("disabled-inputs")
         // disabled curentTry input
-        const currentTryInputs = document.querySelectorAll(`.try-${currentTry} > input`)
+        const currentTryInputs = document.querySelectorAll(`.try-${context.currentTry} > input`)
         currentTryInputs.forEach((input => {
             input.disabled = true;
         }))
 
-        currentTry++;
+        context.nextCurrentTry()
 
-        const el = document.querySelector(`.try-${currentTry}`)
+        const el = document.querySelector(`.try-${context.currentTry}`)
         if (el) {
             // Undisabled next curentTry 
             el.classList.remove("disabled-inputs")
             // Undisabled  next curentTry  input
-            const nextTryInputs = document.querySelectorAll(`.try-${currentTry} > input`)
+            const nextTryInputs = document.querySelectorAll(`.try-${context.currentTry} > input`)
 
             nextTryInputs.forEach((input) => {
                 input.disabled = false;
@@ -193,7 +272,7 @@ function guessCheck(context) {
 
 // mange hintButton 
 
-document.querySelector(".hint span").innerHTML = numberOfHint
+document.querySelector(".hint span").innerHTML = gameContext.numberOfHint
 const hintButton = document.querySelector(".hint")
 
 function hint(context) {
@@ -217,31 +296,62 @@ function hint(context) {
         // if randomInput in enabledInput  
         if (indxRandomInputToFill !== -1) {
 
+
             randomInput.value = wordGuess[indxRandomInputToFill].toUpperCase()
             randomInput.classList.add("hintInput")
-        }
-        // input try number of hint on span 
-        if (numberOfHint > 0) {
-            numberOfHint--
-            document.querySelector(".hint span").innerHTML = numberOfHint
-            if (numberOfHint === 0) {
-                hintButton.disabled = true;
+            if (randomInput.nextElementSibling) {
+                randomInput.nextElementSibling.focus()
 
             }
+            if (context.numberOfHint > 0) {
+                context.nextHint();
+                document.querySelector(".hint span").innerHTML = context.numberOfHint
 
+                if (context.numberOfHint === 0) {
+                    hintButton.disabled = true;
+
+                }
+            }
         }
 
-        randomInput.focus();
-
-
     }
-
+    // input try number of hint on span
 }
+
 function ent(e) {
     if (e.key === "Enter") {
         checkButton.click()
     }
 }
+
+// setting rest button 
+const rest = document.querySelector(".rest")
+
+
+function removeInputs(context) {
+    const tryDiv = document.querySelector(".inputs")
+    const tryDivs = document.querySelectorAll(".inputs > div")
+    tryDivs.forEach((li) => {
+        if (li.parentElement) {
+            li.remove()
+        }
+    })
+    context.reset();
+    genrateInput(context)
+    hintButton.disabled = false
+    checkButton.disabled = false
+    document.querySelector(".massage").innerHTML = " "
+    document.querySelector(".key-colors").style.display = "block"
+    context.restHint()
+    context.restCurrentTry();
+    document.querySelector(".hint span").innerHTML = context.numberOfHint;
+}
+
+
+rest.addEventListener("click", () => { removeInputs(gameContext) })
+// rest.addEventListener("click", () => {
+//     window.location.reload()
+// })
 document.addEventListener("keydown", ent)
 hintButton.addEventListener("click", () => { hint(gameContext) })
 

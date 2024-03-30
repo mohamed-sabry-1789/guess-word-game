@@ -34,6 +34,7 @@ h1 {
         .control {
             width: 400px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             gap: 10px;
             margin: 30px auto;
@@ -51,6 +52,10 @@ h1 {
                 border-color: #108882;
 
                 /* width: fit-content; */
+            }
+
+            .rest {
+                background-color: black;
             }
 
             button {
@@ -234,6 +239,7 @@ footer {
 .hintInput {
     background-color: green;
     color: red;
+
 }
 
 @media (max-width: 600px) {
@@ -295,5 +301,5 @@ footer {
     }
 
 
-    x
+
 }
