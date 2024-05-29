@@ -340,17 +340,12 @@ function guessCheck({ context, ui }) {
                 let input = nextTryInputs[i];
                 input.disabled = false;
                 const prevInputField = document.querySelector(`#guess-${context.currentTry - 1}-input-${i + 1}`)
-
-                console.log(prevInputField, i, context.currentTry)
-
                 const prevLetter = prevInputField.value.toLowerCase();
                 const atctualLetter = wordGuess[i]
-                console.log(wordGuess)
                 if (prevLetter === atctualLetter) {
                     //letter is correct and in place
                     input.classList.add("yes-in-place")
                     input.value = atctualLetter.toUpperCase()
-                    //letter is correct and not in place
 
                 }
             }

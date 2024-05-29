@@ -19,6 +19,8 @@ h1 {
     margin: 0 0 50px;
     background-color: white;
     width: 100%;
+
+
 }
 
 .guess-game {
@@ -28,7 +30,6 @@ h1 {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    height: 100vh;
 
     .game-area {
         .control {
@@ -228,7 +229,7 @@ input {
 
 footer {
     text-align: center;
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     background-color: #333;
@@ -275,7 +276,7 @@ footer {
 
     .key-colors {
         position: relative;
-        /* top: -300px; */
+        /* top: -5000px; */
     }
 
 
@@ -303,6 +304,10 @@ footer {
         flex: 1;
     }
 
+    footer {
 
+        display: none;
+
+    }
 
 }
